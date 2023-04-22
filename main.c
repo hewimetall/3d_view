@@ -1,25 +1,4 @@
-#include "raylib.h"
-#include "rlgl.h"
-#include "raymath.h"
 #include "project.h"
-void print_cube(Color color, int count_index, face indices[]) {
-        rlPushMatrix();
-        rlTranslatef(0, 0, 0);
-        rlBegin(RL_TRIANGLES);
-
-        rlColor4ub(color.r, color.g, color.b, color.a);
-        for(int i = 0; i<count_index;i++) {
-            Vector3  v1 =  indices[i].v1;
-            Vector3  v2 = indices[i].v2;
-            Vector3  v3 = indices[i].v3;
-            float scale_p = 10.0;
-            rlVertex3f(v1.x * scale_p, v1.y * scale_p, v1.z * scale_p);
-            rlVertex3f(v2.x * scale_p, v2.y * scale_p, v2.z * scale_p);
-            rlVertex3f(v3.x * scale_p, v3.y* scale_p, v3.z*scale_p);
-        }
-        rlEnd();
-        rlPopMatrix();
-}
 
 int main() {
     face (*indices)[] = calloc(1,sizeof(face)*100000);
@@ -30,9 +9,13 @@ int main() {
     camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
     camera.fovy = 45.0f;                                // Camera field-of-view Y
     camera.projection = CAMERA_PERSPECTIVE;                   // Camera mode type
+    Vector2 center = {(GetScreenWidth() - 300)/2.0f, GetScreenHeight()/2.0f };
 
-//    int count_index = parser_obj("C:/Users/DERTY/CLionProjects/opengl_test/room.obj", indices);
-    Model md = LoadModel("C:/Users/DERTY/CLionProjects/opengl_test/room.obj");
+    Vector3 angle = {0};
+    Vector3 rotate = {0};
+    float scale = 0;
+
+    int count_index = parser_obj("C:/Users/DERTY/CLionProjects/opengl_test/test.obj", indices);
     InitWindow(800, 450, "My Window");
     SetTargetFPS(60);
     Color color = RED;
@@ -40,15 +23,12 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         BeginMode3D(camera);
-//        rlCheckRenderBatchLimit(36);
-//        print_cube(color,count_index,indices);
-        DrawModel(md,(Vector3) {0.,0,0},1.f,RED);
-//        DrawCube((Vector3) {0,0,0}, 10,10,10,RED );
+        draw_gui(&angle,&rotate,&scale);
+        oper(&indices,angle,rotate,scale);
+        draw_model(color,count_index,indices);
         EndMode3D();
-
         EndDrawing();
     }
-//    UnloadModel(md);
     CloseWindow();
     return 0;
 }

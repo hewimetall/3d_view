@@ -4,15 +4,19 @@
 
 #ifndef EXAMPLE_PROJECT_H
 #define EXAMPLE_PROJECT_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "raylib.h"
+#include "rlgl.h"
+#include "raymath.h"
 
 typedef struct face {
     Vector3 v1, v2, v3;
 } face;
 
 int parser_obj(char filename[],face indices[]);
-
+void draw_model(Color color, int count_index, face indices[]);
+void draw_gui(Vector3 *angle, Vector3 *rotate, float *scale);
 #endif //EXAMPLE_PROJECT_H

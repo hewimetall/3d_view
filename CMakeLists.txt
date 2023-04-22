@@ -40,13 +40,12 @@ set(RAYGUI_EXAMPLES ${raygui_SOURCE_DIR}/examples)
 add_library(raygui INTERFACE)
 file(GLOB raygui_sources ${RAYGUI_SRC}/*.h)
 set(RAYGUI_HEADERS ${raygui_sources})
-
 # OpenGL
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 
 # Our Project
-add_executable(${PROJECT_NAME}  main.c parser.c project.h )
+add_executable(${PROJECT_NAME}  main.c parser.c project.h utils.c ui.c 3dmath.c)
 
 target_link_libraries(${PROJECT_NAME} raylib raygui)
 
