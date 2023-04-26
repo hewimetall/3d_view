@@ -17,6 +17,8 @@ typedef struct face {
 } face;
 
 int parser_obj(char filename[],face indices[]);
-void draw_model(Color color, int count_index, face indices[]);
-void draw_gui(Vector3 *angle, Vector3 *rotate, float *scale);
+void draw_model(Color color, int count_index, face indices[], float scale_p, Vector3 move, Vector3 rotate);
+void draw_gui(Vector3 *move, Vector3 *rotate, float *scale);
+Vector3 oper(Vector3 vec, Vector3 rotate);
+
 #endif //EXAMPLE_PROJECT_H

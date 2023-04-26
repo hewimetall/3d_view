@@ -14,34 +14,11 @@ typedef struct MatrixVec3 {
     Vector3 v[3];
 } MatrixVec3;
 
-#define MATRIXVEC3_TO_MATRIX3(mvec3, m3) \
-    do { \
-        (m3).m0 = (mvec3).v[0].x; (m3).m1 = (mvec3).v[0].y; (m3).m2 = (mvec3).v[0].z; \
-        (m3).m3 = (mvec3).v[1].x; (m3).m4 = (mvec3).v[1].y; (m3).m5 = (mvec3).v[1].z; \
-        (m3).m6 = (mvec3).v[2].x; (m3).m7 = (mvec3).v[2].y; (m3).m8 = (mvec3).v[2].z; \
-    } while(0)
-
-#define MATRIX3_TO_MATRIXVEC3(m3, mvec3) \
-    do { \
-        (mvec3).v[0].x = (m3).m0; (mvec3).v[0].y = (m3).m1; (mvec3).v[0].z = (m3).m2; \
-        (mvec3).v[1].x = (m3).m3; (mvec3).v[1].y = (m3).m4; (mvec3).v[1].z = (m3).m5; \
-        (mvec3).v[2].x = (m3).m6; (mvec3).v[2].y = (m3).m7; (mvec3).v[2].z = (m3).m8; \
-    } while(0)
-
 #define MATRIX3_MULTIPLY_VECTOR3(m, v) ((Vector3) { \
     m.m0 * v.x + m.m3 * v.y + m.m6 * v.z, \
     m.m1 * v.x + m.m4 * v.y + m.m7 * v.z, \
     m.m2 * v.x + m.m5 * v.y + m.m8 * v.z \
 })
-
-Matrix3 Matrix3Identity(Vector3 angle) {
-    Matrix3 result = { 1.0f, 0.0f, 0.0f,
-                      0.0f, 1.0f, 0.0f,
-                      0.0f, 0.0f, 1.0f }; // MatrixIdentity()
-
-
-    return result;
-}
 
 Matrix3 Matrix3Multiply(Matrix3 a, Matrix3 b) {
     Matrix3 result = { 0 };
@@ -54,19 +31,6 @@ Matrix3 Matrix3Multiply(Matrix3 a, Matrix3 b) {
     result.m6 = a.m0 * b.m6 + a.m3 * b.m7 + a.m6 * b.m8;
     result.m7 = a.m1 * b.m6 + a.m4 * b.m7 + a.m7 * b.m8;
     result.m8 = a.m2 * b.m6 + a.m5 * b.m7 + a.m8 * b.m8;
-    return result;
-}
-
-Matrix3 Matrix3Rotate(float radians)
-{
-    float cosAngle = cosf(radians);
-    float sinAngle = sinf(radians);
-
-    Matrix3 result = { cosAngle, 0.0f, 0.0f,
-                      0.0f, sinAngle, 0.0f,
-                      0.0f, 0.0f, cosAngle }; // MatrixIdentity()
-
-
     return result;
 }
 
@@ -92,9 +56,7 @@ Matrix3 Matrix3RotateZ(float angle){
 }
 
 
-void oper(face *index,int count_index, Vector3 angle, Vector3 rotate, float scale) {
-    Matrix3 m3 = Matrix3Multiply(Matrix3Multiply(Matrix3RotateX(angle.x),Matrix3RotateY(angle.y)), Matrix3RotateZ(angle.z));
-    // for(int i = 0; i<count_index;i++) {
-    //     index[i] = MATRIX3_TO_MATRIXVEC3(m3, index[i]);
-    // }
+Vector3 oper(Vector3 vec, Vector3 rotate) {
+    Matrix3 m3 = Matrix3Multiply(Matrix3Multiply(Matrix3RotateX(rotate.x),Matrix3RotateY(rotate.y)), Matrix3RotateZ(rotate.z));
+    return MATRIX3_MULTIPLY_VECTOR3(m3,vec);
 }

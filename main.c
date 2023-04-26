@@ -11,7 +11,7 @@ int main() {
     camera.projection = CAMERA_PERSPECTIVE;                   // Camera mode type
     Vector2 center = {(GetScreenWidth() - 300)/2.0f, GetScreenHeight()/2.0f };
 
-    Vector3 angle = {0};
+    Vector3 move = {0};
     Vector3 rotate = {0};
     float scale = 0;
 
@@ -35,9 +35,9 @@ int main() {
         }
         else if ( count_index ) {
             BeginDrawing();
-                draw_gui(&angle,&rotate,&scale);
+                draw_gui(&move,&rotate,&scale);
             BeginMode3D(camera);
-            draw_model(color,count_index, indices);
+            draw_model(color,count_index, indices, scale, move, rotate);
             EndMode3D();
             EndDrawing();
         } else {
