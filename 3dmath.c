@@ -91,9 +91,10 @@ Matrix3 Matrix3RotateZ(float angle){
     return result;
 }
 
-//void rotate(float angle, float x, float y, float z) {
-//    Matrix3 rx =
-//};
 
-void oper(face *index, Vector3 angle, Vector3 rotate, float scale) {
+void oper(face *index,int count_index, Vector3 angle, Vector3 rotate, float scale) {
+    Matrix3 m3 = Matrix3Multiply(Matrix3Multiply(Matrix3RotateX(angle.x),Matrix3RotateY(angle.y)), Matrix3RotateZ(angle.z));
+    // for(int i = 0; i<count_index;i++) {
+    //     index[i] = MATRIX3_TO_MATRIXVEC3(m3, index[i]);
+    // }
 }
