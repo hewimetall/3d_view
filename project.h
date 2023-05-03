@@ -15,10 +15,12 @@
 typedef struct face {
     Vector3 v1, v2, v3;
 } face;
-
+typedef struct options {
+    
+}options;
 int parser_obj(char filename[],face indices[]);
-void draw_model(Color color, int count_index, face indices[], float scale_p, Vector3 move, Vector3 rotate);
-void draw_gui(Vector3 *move, Vector3 *rotate, float *scale);
+void draw_model(Color color, int count_index, face indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt);
+void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt);
 Vector3 oper(Vector3 vec, Vector3 rotate);
 
 #endif //EXAMPLE_PROJECT_H

@@ -1,7 +1,7 @@
 #include "project.h"
 
 int main() {
-    face (*indices)[] = calloc(1,sizeof(face)*100000);
+    face (*indices)[] = calloc(1,sizeof(face)*1000000);
     // Define the camera to look into our 3d world
     Camera camera = {0};
     camera.position = (Vector3){ 10.0f, 8.0f, 10.0f }; // Camera position
@@ -11,8 +11,8 @@ int main() {
     camera.projection = CAMERA_PERSPECTIVE;                   // Camera mode type
     Vector2 center = {(GetScreenWidth() - 300)/2.0f, GetScreenHeight()/2.0f };
 
-    Vector3 move = {0};
-    Vector3 rotate = {0};
+    Vector3 move = {1.,1.,1.};
+    Vector3 rotate = {1.,1.,1.};
     float scale = 0;
 
     int count_index = 0;
@@ -20,6 +20,7 @@ int main() {
     SetTargetFPS(60);
     char *filePaths[1024] = { 0 }; // We will register a maximum of filepaths
     Color color = GREEN;
+    Vector3 opt = {1.};
     SetCameraMode(camera, CAMERA_FREE);
     while (!WindowShouldClose()) {
             ClearBackground(BLACK);
@@ -27,7 +28,7 @@ int main() {
             FilePathList droppedFiles = LoadDroppedFiles();
             if (droppedFiles.count == 1){
                 free(indices);
-                indices = calloc(1,sizeof(face)*100000);
+                indices = calloc(1,sizeof(face)*1000000);
                 TextCopy(filePaths, droppedFiles.paths[0]);
                 count_index = parser_obj(filePaths, indices);
             }
@@ -35,9 +36,9 @@ int main() {
         }
         else if ( count_index ) {
             BeginDrawing();
-                draw_gui(&move,&rotate,&scale);
+                draw_gui(&move,&rotate,&scale, &opt);
             BeginMode3D(camera);
-            draw_model(color,count_index, indices, scale, move, rotate);
+            draw_model(color,count_index, indices, scale, move, rotate, opt);
             EndMode3D();
             EndDrawing();
         } else {
