@@ -12,14 +12,14 @@
 #include "rlgl.h"
 #include "raymath.h"
 
-typedef struct face {
+typedef struct facet {
     Vector3 v1, v2, v3;
-} face;
+} facet;
 typedef struct options {
     
 }options;
-int parser_obj(char filename[],face indices[]);
-void draw_model(Color color, int count_index, face indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt);
+int parser_obj(char filename[],facet indices[]);
+void draw_model(Color color, int count_index, facet indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt);
 void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt);
 Vector3 oper(Vector3 vec, Vector3 rotate);
 

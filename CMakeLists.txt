@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11) # FetchContent is available in 3.11+
-project(example)
+project(s21_view3d)
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -46,8 +46,17 @@ find_package(OpenGL REQUIRED)
 
 # Our Project
 add_executable(${PROJECT_NAME}  main.c parser.c project.h utils.c ui.c 3dmath.c)
+add_executable(test tests/test.c tests/main.c tests/test.h  parser.c project.h utils.c ui.c 3dmath.c)
 
 target_link_libraries(${PROJECT_NAME} raylib raygui)
+target_link_libraries(test raylib raygui check)
+
+# if (${TARGET} STREQUAL "Web")
+#     # Tell Emscripten to build an example.html file.
+#     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+#     SET(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
+# SET(GCC_COVERAGE_LINK_FLAGS    "-lgcov")
+# endif()
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
@@ -60,4 +69,8 @@ if (APPLE)
     target_link_libraries(${PROJECT_NAME} "-framework IOKit")
     target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
     target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+    target_link_libraries(test "-framework IOKit")
+    target_link_libraries(test "-framework Cocoa")
+    target_link_libraries(test "-framework OpenGL")
+
 endif()

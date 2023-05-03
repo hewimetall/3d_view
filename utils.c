@@ -25,7 +25,7 @@ Vector3 centerV(Vector3 v1, Vector3 v2) {
     return v;
 }
 
-void draw_model(Color color, int count_index, face indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt) {
+void draw_model(Color color, int count_index, facet indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt) {
     rlPushMatrix();
     rlCheckRenderBatchLimit(3*(count_index - 2));
     rlBegin(RL_LINES);

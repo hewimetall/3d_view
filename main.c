@@ -1,7 +1,7 @@
 #include "project.h"
 
 int main() {
-    face (*indices)[] = calloc(1,sizeof(face)*1000000);
+    facet (*indices)[] = calloc(1,sizeof(facet)*1000000);
     // Define the camera to look into our 3d world
     Camera camera = {0};
     camera.position = (Vector3){ 10.0f, 8.0f, 10.0f }; // Camera position
@@ -28,8 +28,9 @@ int main() {
             FilePathList droppedFiles = LoadDroppedFiles();
             if (droppedFiles.count == 1){
                 free(indices);
-                indices = calloc(1,sizeof(face)*1000000);
+                indices = calloc(1,sizeof(facet)*1000000);
                 TextCopy(filePaths, droppedFiles.paths[0]);
+                printf("\n\n%d %d %s\n\n", droppedFiles.capacity, droppedFiles.count, droppedFiles.paths[0] );
                 count_index = parser_obj(filePaths, indices);
             }
             UnloadDroppedFiles(droppedFiles);    // Unload filepaths from memory
