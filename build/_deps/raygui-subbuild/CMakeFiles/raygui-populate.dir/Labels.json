@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/CMakeFiles/raygui-populate"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/CMakeFiles/raygui-populate.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/CMakeFiles/raygui-populate-complete.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-build.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-configure.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-download.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-install.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-mkdir.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-patch.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-test.rule"
+		},
+		{
+			"file" : "/Users/kaleighh/3d_view/build/_deps/raygui-subbuild/raygui-populate-prefix/src/raygui-populate-stamp/raygui-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"raygui-populate"
+		],
+		"name" : "raygui-populate"
+	}
+}

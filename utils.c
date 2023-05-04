@@ -25,7 +25,7 @@ Vector3 centerV(Vector3 v1, Vector3 v2) {
     return v;
 }
 
-void draw_model(Color color, int count_index, face indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt) {
+void draw_model(Color color, int count_index, facet indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt) {
     for(int i = 0; i<count_index ;i++) {
         
         Vector3  v1 = moveV(scaleV(oper(indices[i].v1, rotate), scale_p), move);

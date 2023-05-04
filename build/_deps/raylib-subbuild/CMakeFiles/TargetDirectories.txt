@@ -1,0 +1,3 @@
+/Users/kaleighh/3d_view/build/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir
+/Users/kaleighh/3d_view/build/_deps/raylib-subbuild/CMakeFiles/edit_cache.dir
+/Users/kaleighh/3d_view/build/_deps/raylib-subbuild/CMakeFiles/rebuild_cache.dir

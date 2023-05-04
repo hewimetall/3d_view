@@ -3,7 +3,7 @@
 //
 
 #include "project.h"
-#define MAX_VERTEX 100000
+#define MAX_VERTEX 10
 
 int fgetsn(char buff[],int max,FILE *f) {
     char c = getc(f);
@@ -45,7 +45,6 @@ int parser_obj(char filename[], facet indices[]) {
                     }
                 }
             }
-
             /* Индексы в OBJ начинаются с 1, в Си - с 0 */
             if(v1 < MAX_VERTEX && v2 < MAX_VERTEX && v3 < MAX_VERTEX) {
                 indices[facet_count].v1 = vertices[v1 - 1];
