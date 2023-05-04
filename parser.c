@@ -17,14 +17,15 @@ int parser_obj(char filename[], facet indices[]) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("Could not read file: %s\n", filename);
-        return 1;
+        return 0;
     }
     int vertex_count = 0, facet_count=0;
     char line[100];
     while (fgetsn(line, 100, file)) {
         if (strncmp(line, "v ", 2) == 0) {
-            sscanf(line, "v %f %f %f", &vertices[vertex_count].x,
+            int match = sscanf(line, "v %f %f %f", &vertices[vertex_count].x,
                    &vertices[vertex_count].y, &vertices[vertex_count].z);
+            if (match == 3)
             vertex_count++;
         } else if ((strncmp(line, "vt ", 3) == 0) || (strncmp(line, "vn ", 3) == 0) || (strncmp(line, "#", 1) == 0) ){
         } else if (strncmp(line, "f", 1) == 0 && vertex_count>0) {
@@ -41,6 +42,11 @@ int parser_obj(char filename[], facet indices[]) {
                         printf("Не удалось прочитать f строку. Вместо этого получено "
                                "значение %d.\n",
                                matches);
+                                char* p = line;
+                                while (*p !=0){
+                                    *p = 0;
+                                    p++;
+                                }
                                continue; 
                     }
                 }
@@ -54,6 +60,11 @@ int parser_obj(char filename[], facet indices[]) {
             }
         } else {
             fprintf(stderr, "FAILE %s", line);
+        }
+        char* p = line;
+        while (*p !=0){
+            *p = 0;
+            p++;
         }
     }
     fclose(file);
