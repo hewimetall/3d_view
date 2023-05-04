@@ -1,6 +1,6 @@
 
 
-all := $(shell find ./ -iname "*.c" )
+all := $(./*.c)
 TEST_FILES := array_stack_help.c calculate.c string_edit.c tests/main.c tests/test.c validate.c
 	
 all: install 
@@ -11,14 +11,17 @@ install:
 	cmake -S . -B ../build 
 	cmake open ../build/ 
 	cmake --build ../build --target s21_view3d 
-
+	../build/s21_view3d
+	
 uninstall:
 	rm -rf ../build
 
-test: ${TEST_FILES}
-	gcc -g -fprofile-arcs -ftest-coverage --coverage $^ -o $@.a -lcheck -lgcov -lpthread -lm 
-	./$@.a 
-	
+test:
+	mkdir -p ../build
+	cmake -S . -B ../build 
+	cmake open ../build/ 
+	cmake --build ../build --target test
+	../build/test
 dvi:
 	open readme.html
 
@@ -26,11 +29,13 @@ dist:
 	git archive --format=tar.gz -o C7_SmartCalc_v1.0-1.tar.gz --prefix=my-repo/ develop
 
 gcov_report: test
-	gcov ${all} || true
+	mv ./build/CMakeFiles/test.dir/*.gcda .
+	mv ./build/CMakeFiles/test.dir/*.gcno .
+	gcov *.c 
 	find ./ -type f -iname '*.gcda'
-	lcov --directory ./ --capture --output-file postgresql.info || true
+	lcov --directory ./ --capture --output-file postgresql.info --gcov-tool=gcov-12
 	mkdir cov-report || true
-	genhtml -o ./cov-report/ postgresql.info
+	genhtml -o ./cov-report/ postgresql.info || true
 
 cppcheck: $(all) 
 	cppcheck  $^;

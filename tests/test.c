@@ -1,10 +1,10 @@
 #include "test.h"
 
 START_TEST(par_test1) {
-  char path[20] = "../tests/test.obj";
+  char path[50] = "/home/nooo_sm/s21_school/3d_view/tests/test.obj";
   facet indices[1000] = {0};
-  int count_index = parser_obj(path, indices);
 
+  int count_index = parser_obj(path, indices);
   ck_assert_float_eq(indices[0].v1.x, 0.6134);
   ck_assert_float_eq(indices[0].v1.y, -21.9357);
   ck_assert_float_eq(indices[0].v1.z, 31.4441);
@@ -96,19 +96,22 @@ START_TEST(center_test) {
 }
 END_TEST
 
-// Matrix3 Matrix3Multiply(Matrix3 a, Matrix3 b) {
-//     Matrix3 result = { 0 };
-//     result.m0 = a.m0 * b.m0 + a.m3 * b.m1 + a.m6 * b.m2;
-//     result.m1 = a.m1 * b.m0 + a.m4 * b.m1 + a.m7 * b.m2;
-//     result.m2 = a.m2 * b.m0 + a.m5 * b.m1 + a.m8 * b.m2;
-//     result.m3 = a.m0 * b.m3 + a.m3 * b.m4 + a.m6 * b.m5;
-//     result.m4 = a.m1 * b.m3 + a.m4 * b.m4 + a.m7 * b.m5;
-//     result.m5 = a.m2 * b.m3 + a.m5 * b.m4 + a.m8 * b.m5;
-//     result.m6 = a.m0 * b.m6 + a.m3 * b.m7 + a.m6 * b.m8;
-//     result.m7 = a.m1 * b.m6 + a.m4 * b.m7 + a.m7 * b.m8;
-//     result.m8 = a.m2 * b.m6 + a.m5 * b.m7 + a.m8 * b.m8;
-//     return result;
-// }
+START_TEST(mult_test) {
+  Matrix3 m1 = {-10,0.25,666,0.25,666,-10,666,-10,0.25};
+  Matrix3 m2 = {0, 3000, 1.1,1.1,0, 3000, 3000, 1.1, 0};
+  Matrix3 result = Matrix3Multiply(m1, m2);
+    ck_assert_float_eq(0.25, 0.25);
+  ck_assert_float_eq(result.m0, 1998000.275) ;
+    ck_assert_float_eq(result.m1, -29267.4);
+    ck_assert_float_eq(result.m2, 739) ;
+    ck_assert_float_eq(result.m3, -29267.4) ;
+    ck_assert_float_eq(result.m4,739 );
+    ck_assert_float_eq(result.m5, 1998000.275);
+    ck_assert_float_eq(result.m6, 739 );
+    ck_assert_float_eq(result.m7, 1998000.275);
+    ck_assert_float_eq(result.m8, -29267.4);
+}
+END_TEST
 
 // Matrix3 Matrix3RotateX(float angle){
 //     Matrix3 result = { 1.0f, 0.0f, 0.0f,
@@ -145,9 +148,9 @@ Suite *suite_s21_validate(void) {
   tcase_add_test(tc, par_test1);
   tcase_add_test(tc, par_test2);
   tcase_add_test(tc, scale_test);
-  // tcase_add_test(tc, par_test4);
-  // tcase_add_test(tc, par_test5);
-  // tcase_add_test(tc, par_test6);
+  tcase_add_test(tc, move_test);
+  tcase_add_test(tc, center_test);
+  tcase_add_test(tc, mult_test);
   // tcase_add_test(tc, par_test7);
   // tcase_add_test(tc, par_test8);
   // tcase_add_test(tc, par_test9);

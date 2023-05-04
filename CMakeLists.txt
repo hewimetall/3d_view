@@ -48,15 +48,12 @@ find_package(OpenGL REQUIRED)
 add_executable(${PROJECT_NAME}  main.c parser.c project.h utils.c ui.c 3dmath.c)
 add_executable(test tests/test.c tests/main.c tests/test.h  parser.c project.h utils.c ui.c 3dmath.c)
 
-target_link_libraries(${PROJECT_NAME} raylib raygui)
-target_link_libraries(test raylib raygui check)
+SET(CMAKE_C_FLAGS "-fprofile-arcs -ftest-coverage")
+SET(CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage")
 
-# if (${TARGET} STREQUAL "Web")
-#     # Tell Emscripten to build an example.html file.
-#     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
-#     SET(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
-# SET(GCC_COVERAGE_LINK_FLAGS    "-lgcov")
-# endif()
+target_link_libraries(${PROJECT_NAME} raylib raygui)
+target_link_libraries(test raylib raygui check subunit gcov)
+#SET(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
 
 # Web Configurations
 if (${PLATFORM} STREQUAL "Web")
