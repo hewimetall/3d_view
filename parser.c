@@ -3,7 +3,7 @@
 //
 
 #include "project.h"
-#define MAX_VERTEX 10
+#define MAX_VERTEX 100000
 
 int fgetsn(char buff[],int max,FILE *f) {
     char c = getc(f);

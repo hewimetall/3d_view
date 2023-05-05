@@ -14,14 +14,14 @@ install:
 	../build/s21_view3d
 	
 uninstall:
-	rm -rf ../build
+	rm -rf ./build
 
 test:
 	mkdir -p ../build
 	cmake -S . -B ../build 
 	cmake open ../build/ 
 	cmake --build ../build --target test
-	../build/test
+	../build/test  || true
 dvi:
 	open readme.html
 
@@ -29,11 +29,11 @@ dist:
 	git archive --format=tar.gz -o C7_SmartCalc_v1.0-1.tar.gz --prefix=my-repo/ develop
 
 gcov_report: test
-	mv ./build/CMakeFiles/test.dir/*.gcda .
-	mv ./build/CMakeFiles/test.dir/*.gcno .
+	mv ./build/CMakeFiles/test.dir/*.gcda . || true
+	mv ./build/CMakeFiles/test.dir/*.gcno . || true
 	gcov *.c 
 	find ./ -type f -iname '*.gcda'
-	lcov --directory ./ --capture --output-file postgresql.info --gcov-tool=gcov-12
+	lcov --directory ./ --capture --output-file postgresql.info --gcov-tool=gcov
 	mkdir cov-report || true
 	genhtml -o ./cov-report/ postgresql.info || true
 

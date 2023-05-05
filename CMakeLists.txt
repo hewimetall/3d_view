@@ -52,7 +52,7 @@ SET(CMAKE_C_FLAGS "-fprofile-arcs -ftest-coverage")
 SET(CMAKE_CXX_FLAGS "-fprofile-arcs -ftest-coverage")
 
 target_link_libraries(${PROJECT_NAME} raylib raygui)
-target_link_libraries(test raylib raygui check subunit gcov)
+target_link_libraries(test raylib raygui check)
 #SET(GCC_COVERAGE_COMPILE_FLAGS "-fprofile-arcs -ftest-coverage")
 
 # Web Configurations

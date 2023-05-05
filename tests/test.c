@@ -1,7 +1,7 @@
 #include "test.h"
 
 START_TEST(par_test1) {
-  char path[50] = "/home/nooo_sm/s21_school/3d_view/tests/test.obj";
+  char path[50] = "/Users/kaleighh/3d_view/tests/test.obj";
   facet indices[1000] = {0};
 
   int count_index = parser_obj(path, indices);
@@ -113,32 +113,15 @@ START_TEST(mult_test) {
 }
 END_TEST
 
-// Matrix3 Matrix3RotateX(float angle){
-//     Matrix3 result = { 1.0f, 0.0f, 0.0f,
-//                        0.0f, cosf(angle), -sinf(angle),
-//                        0.0f, sinf(angle), cosf(angle) };
-//     return result;
-// }
-
-// Matrix3 Matrix3RotateY(float angle){
-//     Matrix3 result = { cosf(angle), 0.0f, sinf(angle),
-//                        0.0f, 1, 0.0f,
-//                        -sinf(angle), 0, cosf(angle) };
-//     return result;
-// }
-
-// Matrix3 Matrix3RotateZ(float angle){
-//     Matrix3 result = { cosf(angle), -sinf(angle), 0.0f,
-//                        sinf(angle), cosf(angle), 0.0f,
-//                        0.0f, 0.0f, 1.0f};
-//     return result;
-// }
-
-
-// Vector3 oper(Vector3 vec, Vector3 rotate) {
-//     Matrix3 m3 = Matrix3Multiply(Matrix3Multiply(Matrix3RotateX(rotate.x),Matrix3RotateY(rotate.y)), Matrix3RotateZ(rotate.z));
-//     return MATRIX3_MULTIPLY_VECTOR3(m3,vec);
-// }
+START_TEST(rot_test) {
+  Vector3 v = {6.5, -1000, 0};
+  Vector3 rot = {0, 0, 0};
+  v = oper(v, rot);
+  ck_assert_float_eq(v.x, 6.5);
+  ck_assert_float_eq(v.y, -1000);
+  ck_assert_float_eq(v.z, 0);
+}
+END_TEST
 
 
 Suite *suite_s21_validate(void) {
@@ -151,16 +134,7 @@ Suite *suite_s21_validate(void) {
   tcase_add_test(tc, move_test);
   tcase_add_test(tc, center_test);
   tcase_add_test(tc, mult_test);
-  // tcase_add_test(tc, par_test7);
-  // tcase_add_test(tc, par_test8);
-  // tcase_add_test(tc, par_test9);
-  // tcase_add_test(tc, par_test10);
-  // tcase_add_test(tc, par_test11);
-  // tcase_add_test(tc, par_test12);
-  // tcase_add_test(tc, par_test13);
-  // tcase_add_test(tc, par_test14);
-  // tcase_add_test(tc, par_test15);
-  // tcase_add_test(tc, par_test16);
+  tcase_add_test(tc, rot_test);
 
   suite_add_tcase(suite, tc);
 
