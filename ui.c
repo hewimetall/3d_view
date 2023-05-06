@@ -47,7 +47,7 @@ double validVal(char *input) {
   return res;
 }
 
-void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* xMoveEditMode, char *xMoveText) {
+void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* xMoveEditMode, char *xMoveText, int* yMoveEditMode, char *yMoveText, int* zMoveEditMode, char *zMoveText, int* xRotEditMode, char *xRotText) {
     DrawRectangle(STARTX-30,STARTY,350,160,WHITE);
 
     float tmpXmoveS = GuiSliderBar((Rectangle){ XPOS(1), YPOS(1), 120, 20 }, "Move x", NULL, move->x, -180, 180);
@@ -56,15 +56,44 @@ void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* x
     float tmpXmoveT = validVal(xMoveText);
     if (tmpXmoveS != move->x){
        move->x = tmpXmoveS;
-       sprintf(xMoveText, "%f", move->x);
+       sprintf(xMoveText, "%.2f", move->x);
     } else if (tmpXmoveT != move->x){
        move->x = tmpXmoveT;
     }
 
-    move->y = GuiSliderBar((Rectangle){ XPOS(2), YPOS(2), 120, STEP }, "Move y", NULL, move->y, -180, 180);
-    move->z = GuiSliderBar((Rectangle){ XPOS(3), YPOS(3), 120, STEP }, "Move z", NULL, move->z, -450, 180);
+    float tmpYmoveS =  GuiSliderBar((Rectangle){ XPOS(2), YPOS(2), 120, STEP }, "Move y", NULL, move->y, -180, 180);
+    if (GuiTextBox((Rectangle){XPOS(2) + 130, YPOS(2), 120, 20}, yMoveText, 29, *yMoveEditMode))
+      *yMoveEditMode = !(*yMoveEditMode);
+    float tmpYmoveT = validVal(yMoveText);
+    if (tmpYmoveS != move->y){
+       move->y = tmpYmoveS;
+       sprintf(yMoveText, "%.2f", move->y);
+    } else if (tmpYmoveT != move->y){
+       move->y = tmpYmoveT;
+    }
 
-    rotate->x = GuiSliderBar((Rectangle){ XPOS(4), YPOS(4), 120, STEP }, "Rotate x", NULL, rotate->x, -180, 180);
+    float tmpZmoveS =  GuiSliderBar((Rectangle){ XPOS(3), YPOS(3), 120, STEP }, "Move z", NULL, move->z, -180, 180);
+    if (GuiTextBox((Rectangle){XPOS(3) + 130, YPOS(3), 120, 20}, zMoveText, 29, *zMoveEditMode))
+      *zMoveEditMode = !(*zMoveEditMode);
+    float tmpZmoveT = validVal(zMoveText);
+    if (tmpZmoveS != move->z){
+       move->z = tmpZmoveS;
+       sprintf(zMoveText, "%.2f", move->z);
+    } else if (tmpZmoveT != move->z){
+       move->z = tmpZmoveT;
+    }
+
+    float tmpXrotS =  GuiSliderBar((Rectangle){ XPOS(4), YPOS(4), 120, STEP }, "Rotate x", NULL, rotate->x, -180, 180);
+    if (GuiTextBox((Rectangle){XPOS(4) + 130, YPOS(4), 120, 20}, xRotText, 29, *xRotEditMode))
+      *xRotEditMode = !(*xRotEditMode);
+    float tmpXrotT = validVal(xRotText);
+    if (tmpXrotS != rotate->x){
+       rotate->x = tmpXrotS;
+       sprintf(xRotText, "%.2f", rotate->x);
+    } else if (tmpXrotT != rotate->x){
+       rotate->x = tmpXrotT;
+    }
+
     rotate->y = GuiSliderBar((Rectangle){ XPOS(5), YPOS(5), 120, STEP }, "Rotate y", NULL, rotate->y, -180, 180);
     rotate->z = GuiSliderBar((Rectangle){ XPOS(6), YPOS(6), 120, STEP }, "Rotate z", NULL, rotate->z, -180, 180);
 

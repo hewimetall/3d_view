@@ -12,9 +12,18 @@ int main() {
     Vector2 center = {(GetScreenWidth() - 300)/2.0f, GetScreenHeight()/2.0f };
 
     int xMoveEditMode = 0;
+    int yMoveEditMode = 0;
+    int zMoveEditMode = 0;
+    int xRotEditMode = 0;
 
     char xMoveText[30] = {0};
     xMoveText[0] = '0';
+    char yMoveText[30] = {0};
+    yMoveText[0] = '0';
+    char zMoveText[30] = {0};
+    zMoveText[0] = '0';
+    char xRotText[30] = {0};
+    xRotText[0] = '0';
 
     Vector3 move = {1.,1.,1.};
     Vector3 rotate = {0.,0.,0.};
@@ -45,7 +54,7 @@ int main() {
             BeginMode3D(camera);
             draw_model(color,count_index, indices, scale, move, rotate, opt);
             EndMode3D();
-            draw_gui(&move,&rotate,&scale, &opt, &xMoveEditMode, xMoveText);
+            draw_gui(&move,&rotate,&scale, &opt, &xMoveEditMode, xMoveText, &yMoveEditMode, yMoveText, &zMoveEditMode, zMoveText, &xRotEditMode, xRotText);
             EndDrawing();
         } else {
             BeginDrawing();
