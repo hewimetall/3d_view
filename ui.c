@@ -48,7 +48,7 @@ double validVal(char *input) {
   return res;
 }
 
-void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* xMoveEditMode, char *xMoveText, int* yMoveEditMode, char *yMoveText, int* zMoveEditMode, char *zMoveText, int* xRotEditMode, char *xRotText, int* yRotEditMode, char *yRotText) {
+void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* xMoveEditMode, char *xMoveText, int* yMoveEditMode, char *yMoveText, int* zMoveEditMode, char *zMoveText, int* xRotEditMode, char *xRotText, int* yRotEditMode, char *yRotText, int* zRotEditMode, char *zRotText) {
     GuiLoadStyleTerminal();
     DrawRectangle(STARTX-30,STARTY,350,160,DARKGRAY);
     GuiSetStyle(DEFAULT, TEXT_SIZE, 21);
@@ -108,7 +108,16 @@ void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* x
        rotate->y = tmpYrotT;
     }
 
-    rotate->z = GuiSliderBar((Rectangle){ XPOS(6), YPOS(6), 120, STEP }, "Rotate z", NULL, rotate->z, -180, 180);
+    float tmpZrotS =  GuiSliderBar((Rectangle){ XPOS(6), YPOS(6), 120, STEP }, "Rotate z", NULL, rotate->z, -180, 180);
+    if (GuiTextBox((Rectangle){XPOS(6) + 130, YPOS(6), 110, 20}, zRotText, 29, *zRotEditMode))
+      *zRotEditMode = !(*zRotEditMode);
+    float tmpZrotT = validVal(zRotText);
+    if (tmpZrotS != rotate->z){
+       rotate->z = tmpZrotS;
+       sprintf(zRotText, "%.2f", rotate->z);
+    } else if (tmpZrotT != rotate->z){
+       rotate->z = tmpZrotT;
+    }
 
     *scale = GuiSliderBar((Rectangle){ XPOS(7), YPOS(7), 120, STEP }, "Scale", NULL, *scale, 0.1, 5);
     

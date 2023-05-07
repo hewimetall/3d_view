@@ -61,7 +61,7 @@ int main() {
             BeginMode3D(camera);
             draw_model(color,count_index, indices, scale, move, rotate, opt);
             EndMode3D();
-            draw_gui(&move,&rotate,&scale, &opt, &xMoveEditMode, xMoveText, &yMoveEditMode, yMoveText, &zMoveEditMode, zMoveText, &xRotEditMode, xRotText,&yRotEditMode, yRotText);
+            draw_gui(&move,&rotate,&scale, &opt, &xMoveEditMode, xMoveText, &yMoveEditMode, yMoveText, &zMoveEditMode, zMoveText, &xRotEditMode, xRotText,&yRotEditMode, yRotText,&zRotEditMode, zRotText);
             EndDrawing();
         } else {
             BeginDrawing();
