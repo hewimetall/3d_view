@@ -4,11 +4,12 @@
 #define RAYGUI_IMPLEMENTATION
 #include "raylib.h"
 #include "raygui.h"
+#include "terminal.h"
 #define STARTX 650
 #define STARTY 0
 #define STEP 20
 #define YPOS(x)(STARTY+STEP*(x-1))
-#define XPOS(x)(STARTX+20)
+#define XPOS(x)(STARTX+50)
 
 int chrbrk(char simb, char *str) {
   char *p;
@@ -47,11 +48,13 @@ double validVal(char *input) {
   return res;
 }
 
-void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* xMoveEditMode, char *xMoveText, int* yMoveEditMode, char *yMoveText, int* zMoveEditMode, char *zMoveText, int* xRotEditMode, char *xRotText) {
-    DrawRectangle(STARTX-30,STARTY,350,160,WHITE);
+void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* xMoveEditMode, char *xMoveText, int* yMoveEditMode, char *yMoveText, int* zMoveEditMode, char *zMoveText, int* xRotEditMode, char *xRotText, int* yRotEditMode, char *yRotText) {
+    GuiLoadStyleTerminal();
+    DrawRectangle(STARTX-30,STARTY,350,160,DARKGRAY);
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 21);
 
     float tmpXmoveS = GuiSliderBar((Rectangle){ XPOS(1), YPOS(1), 120, 20 }, "Move x", NULL, move->x, -180, 180);
-    if (GuiTextBox((Rectangle){XPOS(1) + 130, YPOS(1), 120, 20}, xMoveText, 29, *xMoveEditMode))
+    if (GuiTextBox((Rectangle){XPOS(1) + 130, YPOS(1), 110, 20}, xMoveText, 29, *xMoveEditMode))
       *xMoveEditMode = !(*xMoveEditMode);
     float tmpXmoveT = validVal(xMoveText);
     if (tmpXmoveS != move->x){
@@ -62,7 +65,7 @@ void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* x
     }
 
     float tmpYmoveS =  GuiSliderBar((Rectangle){ XPOS(2), YPOS(2), 120, STEP }, "Move y", NULL, move->y, -180, 180);
-    if (GuiTextBox((Rectangle){XPOS(2) + 130, YPOS(2), 120, 20}, yMoveText, 29, *yMoveEditMode))
+    if (GuiTextBox((Rectangle){XPOS(2) + 130, YPOS(2), 110, 20}, yMoveText, 29, *yMoveEditMode))
       *yMoveEditMode = !(*yMoveEditMode);
     float tmpYmoveT = validVal(yMoveText);
     if (tmpYmoveS != move->y){
@@ -73,7 +76,7 @@ void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* x
     }
 
     float tmpZmoveS =  GuiSliderBar((Rectangle){ XPOS(3), YPOS(3), 120, STEP }, "Move z", NULL, move->z, -180, 180);
-    if (GuiTextBox((Rectangle){XPOS(3) + 130, YPOS(3), 120, 20}, zMoveText, 29, *zMoveEditMode))
+    if (GuiTextBox((Rectangle){XPOS(3) + 130, YPOS(3), 110, 20}, zMoveText, 29, *zMoveEditMode))
       *zMoveEditMode = !(*zMoveEditMode);
     float tmpZmoveT = validVal(zMoveText);
     if (tmpZmoveS != move->z){
@@ -84,7 +87,7 @@ void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* x
     }
 
     float tmpXrotS =  GuiSliderBar((Rectangle){ XPOS(4), YPOS(4), 120, STEP }, "Rotate x", NULL, rotate->x, -180, 180);
-    if (GuiTextBox((Rectangle){XPOS(4) + 130, YPOS(4), 120, 20}, xRotText, 29, *xRotEditMode))
+    if (GuiTextBox((Rectangle){XPOS(4) + 130, YPOS(4), 110, 20}, xRotText, 29, *xRotEditMode))
       *xRotEditMode = !(*xRotEditMode);
     float tmpXrotT = validVal(xRotText);
     if (tmpXrotS != rotate->x){
@@ -94,7 +97,17 @@ void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* x
        rotate->x = tmpXrotT;
     }
 
-    rotate->y = GuiSliderBar((Rectangle){ XPOS(5), YPOS(5), 120, STEP }, "Rotate y", NULL, rotate->y, -180, 180);
+    float tmpYrotS =  GuiSliderBar((Rectangle){ XPOS(5), YPOS(5), 120, STEP }, "Rotate y", NULL, rotate->y, -180, 180);
+    if (GuiTextBox((Rectangle){XPOS(5) + 130, YPOS(5), 110, 20}, yRotText, 29, *yRotEditMode))
+      *yRotEditMode = !(*yRotEditMode);
+    float tmpYrotT = validVal(yRotText);
+    if (tmpYrotS != rotate->y){
+       rotate->y = tmpYrotS;
+       sprintf(yRotText, "%.2f", rotate->y);
+    } else if (tmpYrotT != rotate->y){
+       rotate->y = tmpYrotT;
+    }
+
     rotate->z = GuiSliderBar((Rectangle){ XPOS(6), YPOS(6), 120, STEP }, "Rotate z", NULL, rotate->z, -180, 180);
 
     *scale = GuiSliderBar((Rectangle){ XPOS(7), YPOS(7), 120, STEP }, "Scale", NULL, *scale, 0.1, 5);
