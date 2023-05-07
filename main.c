@@ -17,6 +17,7 @@ int main() {
     int xRotEditMode = 0;
     int yRotEditMode = 0;
     int zRotEditMode = 0;
+    int scaleEditMode = 0;
 
     char xMoveText[30] = {0};
     xMoveText[0] = '0';
@@ -30,6 +31,8 @@ int main() {
     yRotText[0] = '0';
     char zRotText[30] = {0};
     zRotText[0] = '0';
+    char scaleText[30] = {0};
+    scaleText[0] = '0';
 
     Vector3 move = {1.,1.,1.};
     Vector3 rotate = {0.,0.,0.};
@@ -42,7 +45,8 @@ int main() {
     Color color = GREEN;
     Vector3 opt = {1.};
     SetCameraMode(camera, CAMERA_FREE);
-    initStyle();
+    elem *element = initGui(&move, &rotate, &scale);
+    float a = element[1].max;
     while (!WindowShouldClose()) {
             ClearBackground(BLACK);
         if (IsFileDropped()) {
@@ -61,7 +65,7 @@ int main() {
             BeginMode3D(camera);
             draw_model(color,count_index, indices, scale, move, rotate, opt);
             EndMode3D();
-            draw_gui(&move,&rotate,&scale, &opt, &xMoveEditMode, xMoveText, &yMoveEditMode, yMoveText, &zMoveEditMode, zMoveText, &xRotEditMode, xRotText,&yRotEditMode, yRotText,&zRotEditMode, zRotText);
+            draw_gui(&move,&rotate,&scale, &opt, &element);
             EndDrawing();
         } else {
             BeginDrawing();

@@ -59,7 +59,7 @@ int parser_obj(char filename[], facet indices[]) {
                 facet_count++;
             }
         } else {
-            fprintf(stderr, "FAIL STRING: %s\n", line);
+            // fprintf(stderr, "FAIL STRING: %s\n", line);
         }
         char* p = line;
         while (*p !=0){
