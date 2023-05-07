@@ -42,7 +42,7 @@ int main() {
     Color color = GREEN;
     Vector3 opt = {1.};
     SetCameraMode(camera, CAMERA_FREE);
-    
+    initStyle();
     while (!WindowShouldClose()) {
             ClearBackground(BLACK);
         if (IsFileDropped()) {
