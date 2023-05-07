@@ -39,7 +39,7 @@ void draw_model(Color color, int count_index, facet indices[], float scale_p, Ve
         Vector3  vc23 = centerV(v2,v3);
         Vector3  vcvc232 = centerV(vc23,v2);
         Vector3  vcvc233 = centerV(vc23,v3);
-        if(opt.x){
+        if(!opt.x){
             DrawLine3D(v1,v2,GREEN);
             DrawLine3D(v2,v3,GREEN);
         } else {

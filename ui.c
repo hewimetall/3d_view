@@ -6,11 +6,10 @@
 #include "raygui.h"
 #include "terminal.h"
 #define STARTX 650
-#define STARTY 0
+#define STARTY 10
 #define STEP 20
-#define YPOS(x)(STARTY+STEP*(x-1))
+#define YPOS(x)(STARTY+(STEP+10)*(x-1))
 #define XPOS(x)(STARTX+50)
-#define POS(x) XPOS(x), YPOS(x)
 
 int chrbrk(char simb, char *str) {
   char *p;
@@ -89,90 +88,12 @@ void textSlide(int pos, elem* element) {
     }   
 }
 
-void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, elem* element) {
-    DrawRectangle(STARTX-30,STARTY,350,200,DARKGRAY);
+void draw_gui(Vector3 *opt, elem* element) {
+    DrawRectangle(STARTX-30,STARTY-10,350,250,DARKGRAY);
 
     for (int i = 0; i < 7; i++)
     { textSlide(i+1, &(element[i]));}
     
-    // float tmpXmoveS = GuiSliderBar((Rectangle){ XPOS(1), YPOS(1), 120, 20 }, "Move x", NULL, move->x, -180, 180);
-    // if (GuiTextBox((Rectangle){XPOS(1) + 130, YPOS(1), 110, 20}, xMoveText, 29, *xMoveEditMode))
-    //   *xMoveEditMode = !(*xMoveEditMode);
-    // float tmpXmoveT = validVal(xMoveText);
-    // if (tmpXmoveS != move->x){
-    //    move->x = tmpXmoveS;
-    //    sprintf(xMoveText, "%.2f", move->x);
-    // } else if (tmpXmoveT != move->x){
-    //    move->x = tmpXmoveT;
-    // }
-
-    // float tmpYmoveS =  GuiSliderBar((Rectangle){ XPOS(2), YPOS(2), 120, STEP }, "Move y", NULL, move->y, -180, 180);
-    // if (GuiTextBox((Rectangle){XPOS(2) + 130, YPOS(2), 110, 20}, yMoveText, 29, *yMoveEditMode))
-    //   *yMoveEditMode = !(*yMoveEditMode);
-    // float tmpYmoveT = validVal(yMoveText);
-    // if (tmpYmoveS != move->y){
-    //    move->y = tmpYmoveS;
-    //    sprintf(yMoveText, "%.2f", move->y);
-    // } else if (tmpYmoveT != move->y){
-    //    move->y = tmpYmoveT;
-    // }
-
-    // float tmpZmoveS =  GuiSliderBar((Rectangle){ XPOS(3), YPOS(3), 120, STEP }, "Move z", NULL, move->z, -180, 180);
-    // if (GuiTextBox((Rectangle){XPOS(3) + 130, YPOS(3), 110, 20}, zMoveText, 29, *zMoveEditMode))
-    //   *zMoveEditMode = !(*zMoveEditMode);
-    // float tmpZmoveT = validVal(zMoveText);
-    // if (tmpZmoveS != move->z){
-    //    move->z = tmpZmoveS;
-    //    sprintf(zMoveText, "%.2f", move->z);
-    // } else if (tmpZmoveT != move->z){
-    //    move->z = tmpZmoveT;
-    // }
-
-    // float tmpXrotS =  GuiSliderBar((Rectangle){ XPOS(4), YPOS(4), 120, STEP }, "Rotate x", NULL, rotate->x, -10, 10);
-    // if (GuiTextBox((Rectangle){XPOS(4) + 130, YPOS(4), 110, 20}, xRotText, 29, *xRotEditMode))
-    //   *xRotEditMode = !(*xRotEditMode);
-    // float tmpXrotT = validVal(xRotText);
-    // if (tmpXrotS != rotate->x){
-    //    rotate->x = tmpXrotS;
-    //    sprintf(xRotText, "%.2f", rotate->x);
-    // } else if (tmpXrotT != rotate->x){
-    //    rotate->x = tmpXrotT;
-    // }
-
-    // float tmpYrotS =  GuiSliderBar((Rectangle){ XPOS(5), YPOS(5), 120, STEP }, "Rotate y", NULL, rotate->y, -10, 10);
-    // if (GuiTextBox((Rectangle){XPOS(5) + 130, YPOS(5), 110, 20}, yRotText, 29, *yRotEditMode))
-    //   *yRotEditMode = !(*yRotEditMode);
-    // float tmpYrotT = validVal(yRotText);
-    // if (tmpYrotS != rotate->y){
-    //    rotate->y = tmpYrotS;
-    //    sprintf(yRotText, "%.2f", rotate->y);
-    // } else if (tmpYrotT != rotate->y){
-    //    rotate->y = tmpYrotT;
-    // }
-
-    // float tmpZrotS =  GuiSliderBar((Rectangle){ XPOS(6), YPOS(6), 120, STEP }, "Rotate z", NULL, rotate->z, -10, 10);
-    // if (GuiTextBox((Rectangle){XPOS(6) + 130, YPOS(6), 110, 20}, zRotText, 29, *zRotEditMode))
-    //   *zRotEditMode = !(*zRotEditMode);
-    // float tmpZrotT = validVal(zRotText);
-    // if (tmpZrotS != rotate->z){
-    //    rotate->z = tmpZrotS;
-    //    sprintf(zRotText, "%.2f", rotate->z);
-    // } else if (tmpZrotT != rotate->z){
-    //    rotate->z = tmpZrotT;
-    // }
-
-    // float tmpScaleS = GuiSliderBar((Rectangle){ XPOS(7), YPOS(7), 120, STEP }, "Scale", NULL, *scale, 0.1, 5);
-    // if (GuiTextBox((Rectangle){XPOS(7) + 130, YPOS(7), 110, 20}, scaleText, 29, *scaleEditMode))
-    //   *scaleEditMode = !(*scaleEditMode);
-    // float tmpScaleT = validVal(scaleText);
-    // if (tmpScaleS != *scale){
-    //    *scale = tmpScaleS;
-    //    sprintf(scaleText, "%.2f", *scale);
-    // } else if (tmpScaleT != *scale){
-    //    *scale = tmpScaleT;
-    // }
-
-    
-    opt->x = GuiCheckBox((Rectangle){ POS(8), 20, STEP }, "Dr line", opt->x);
-    opt->y = GuiCheckBox((Rectangle){ XPOS(9), YPOS(9), 20, STEP }, "Type", opt->y);
+    opt->x = GuiCheckBox((Rectangle){ XPOS(8) + 130, YPOS(8), 20, STEP }, "Dropped line", opt->x);
+    opt->y = GuiCheckBox((Rectangle){ XPOS(8), YPOS(8), 20, STEP }, "Type", opt->y);
 }
