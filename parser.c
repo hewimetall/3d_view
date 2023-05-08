@@ -12,23 +12,23 @@ int fgetsn(char buff[],int max,FILE *f) {
     if(c == EOF) c = 0;
     return c;
 }
-int parser_obj(char filename[], facet indices[]) {
+int parser_obj(char filename[], facet indices[], int* vertex_count) {
     Vector3 vertices[MAX_VERTEX];
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         printf("Could not read file: %s\n", filename);
         return 0;
     }
-    int vertex_count = 0, facet_count=0;
+    int  facet_count=0;
     char line[100];
     while (fgetsn(line, 100, file)) {
         if (strncmp(line, "v ", 2) == 0) {
-            int match = sscanf(line, "v %f %f %f", &vertices[vertex_count].x,
-                   &vertices[vertex_count].y, &vertices[vertex_count].z);
+            int match = sscanf(line, "v %f %f %f", &vertices[*vertex_count].x,
+                   &vertices[*vertex_count].y, &vertices[*vertex_count].z);
             if (match == 3)
-            vertex_count++;
+            (*vertex_count)++;
         } else if ((strncmp(line, "vt ", 3) == 0) || (strncmp(line, "vn ", 3) == 0) || (strncmp(line, "#", 1) == 0) ){
-        } else if (strncmp(line, "f", 1) == 0 && vertex_count>0) {
+        } else if (strncmp(line, "f", 1) == 0 && *vertex_count>0) {
             unsigned int v1, v2, v3, vt1, vt2, vt3, vn1, vn2, vn3;
             int matches = sscanf(line, "f %u/%u/%u %u/%u/%u %u/%u/%u\n", &v1, &vt1,
                                  &vn1, &v2, &vt2, &vn2, &v3, &vt3, &vn3);

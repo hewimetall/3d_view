@@ -27,10 +27,10 @@ typedef struct facet {
 typedef struct options {
     
 }options;
-int parser_obj(char filename[],facet indices[]);
+int parser_obj(char filename[],facet indices[], int* vertex_count);
 void draw_model(Color color, int count_index, facet indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt);
 Vector3 oper(Vector3 vec, Vector3 rotate);
-void draw_gui(Vector3 *opt,  elem* element);
+void draw_gui(Vector3 *opt,  elem* element, int* openExpl, char* filePaths, int count_index, int count_vertex);
 elem* initGui(Vector3 *move, Vector3 *rotate, float* scale);
 
 #endif //EXAMPLE_PROJECT_H

@@ -13,8 +13,10 @@ int main() {
     Vector3 move = {1.,1.,1.};
     Vector3 rotate = {0.,0.,0.};
     float scale = 0;
+    int openExpl = 0;
 
     int count_index = 0;
+    int count_vertex = 0;
     InitWindow(950, 450, "My Window");
     SetTargetFPS(60);
     char filePaths[1024] = { 0 }; // We will register a maximum of filepaths
@@ -31,7 +33,7 @@ int main() {
                 indices = calloc(1,sizeof(facet)*1000000);
                 TextCopy(filePaths, droppedFiles.paths[0]);
                 printf("\n\n%d %d %s\n\n", droppedFiles.capacity, droppedFiles.count, droppedFiles.paths[0] );
-                count_index = parser_obj(filePaths, indices);
+                count_index = parser_obj(filePaths, indices, &count_vertex);
             }
             UnloadDroppedFiles(droppedFiles);    // Unload filepaths from memory
         }
@@ -40,7 +42,8 @@ int main() {
             BeginMode3D(camera);
             draw_model(color,count_index, indices, scale, move, rotate, opt);
             EndMode3D();
-            draw_gui(&opt, element);
+        
+            draw_gui(&opt, element, &openExpl, filePaths, count_index, count_vertex);
             EndDrawing();
         } else {
             BeginDrawing();
@@ -50,5 +53,6 @@ int main() {
     }
     CloseWindow();
     free(indices);
+    free(element);
     return 0;
 }

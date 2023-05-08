@@ -5,6 +5,7 @@
 #include "raylib.h"
 #include "raygui.h"
 #include "terminal.h"
+#include <string.h>
 #define STARTX 650
 #define STARTY 10
 #define STEP 20
@@ -47,6 +48,17 @@ double validVal(char *input) {
 
   return res;
 }
+
+char* findFilename(char* filePaths){
+  char* p = filePaths;
+  char* slash = NULL;
+  while (*p != 0){
+    if(*p == '/') slash = p;
+    p++;
+  }
+  return ++slash;
+}
+
 typedef struct elem {
   char drawText[20];
   float* dest;
@@ -73,8 +85,6 @@ elem* initGui(Vector3 *move, Vector3 *rotate, float* scale){
   return element;
 };
 
-
-
 void textSlide(int pos, elem* element) {
       float tmpSlide = GuiSliderBar((Rectangle){ XPOS(pos), YPOS(pos), 120, 20}, element->drawText, NULL, *(element->dest), element->min, element->max);
     if (GuiTextBox((Rectangle){XPOS(pos) + 130, YPOS(pos), 110, 20}, element->floatText, 29, element->editMode))
@@ -88,12 +98,25 @@ void textSlide(int pos, elem* element) {
     }   
 }
 
-void draw_gui(Vector3 *opt, elem* element) {
-    DrawRectangle(STARTX-30,STARTY-10,350,250,DARKGRAY);
+void draw_gui(Vector3 *opt, elem* element, int* openExpl, char* filePaths, int count_index, int count_vertex) {
+  char vertexText[30] = {0};
+  char facetText[30] = {0};
+
+    DrawRectangle(STARTX-30,STARTY-10,350,450, BLACK);
+    DrawLine(STARTX-30, STARTY-10, STARTX-30, 450, DARKGRAY);
 
     for (int i = 0; i < 7; i++)
     { textSlide(i+1, &(element[i]));}
     
     opt->x = GuiCheckBox((Rectangle){ XPOS(8) + 130, YPOS(8), 20, STEP }, "Dropped line", opt->x);
     opt->y = GuiCheckBox((Rectangle){ XPOS(8), YPOS(8), 20, STEP }, "Type", opt->y);
+
+    *openExpl = GuiButton((Rectangle){XPOS(15) - 20, YPOS(15) - 10, 260, 25}, "Open new file");
+
+    DrawText(findFilename(filePaths), XPOS(15) - 20, YPOS(12) - 10, 20, GREEN);
+
+    sprintf(vertexText, "Count of vertex: %d", count_vertex);
+    sprintf(facetText, "Count of facet: %d", count_index);
+    DrawText(vertexText, XPOS(15) - 20, YPOS(13) - 10, 20, GREEN);
+    DrawText(facetText, XPOS(15) - 20, YPOS(14) - 10, 20, GREEN);
 }
