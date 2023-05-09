@@ -56,6 +56,6 @@ Matrix3 Matrix3RotateZ(float angle){
 }
 
 Vector3 oper(Vector3 vec, Vector3 rotate) {
-    Matrix3 m3 = Matrix3Multiply(Matrix3Multiply(Matrix3RotateX(rotate.x),Matrix3RotateY(rotate.y)), Matrix3RotateZ(rotate.z));
+    Matrix3 m3 = Matrix3Multiply(Matrix3Multiply(Matrix3RotateX(rotate.x/57.2958),Matrix3RotateY(rotate.y/57.2958)), Matrix3RotateZ(rotate.z/57.2958));
     return MATRIX3_MULTIPLY_VECTOR3(m3,vec);
 }

@@ -21,7 +21,7 @@ int main() {
     SetTargetFPS(60);
     char filePaths[1024] = { 0 }; // We will register a maximum of filepaths
     Color color = GREEN;
-    Vector3 opt = {0., 0, 0};
+    Vector3 opt = {0., 1., 0};
     SetCameraMode(camera, CAMERA_FREE);
     elem *element = initGui(&move, &rotate, &scale);
     while (!WindowShouldClose()) {
@@ -48,6 +48,7 @@ int main() {
         } else {
             BeginDrawing();
                 DrawText("Drop file", 380,450/2-50,45,RED);
+                openExpl = GuiButton((Rectangle){400,450/2+30, 150, 30}, "Open file");
             EndDrawing();
         }
     }

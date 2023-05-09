@@ -77,9 +77,9 @@ elem* initGui(Vector3 *move, Vector3 *rotate, float* scale){
   element[0] = (elem){"Move x", &move->x, -180, 180, "0", 0};
   element[1] = (elem){"Move y", &move->y, -180, 180, "0", 0};
   element[2] = (elem){"Move z", &move->z, -180, 180, "0", 0};
-  element[3] = (elem){"Rotate x", &rotate->x, -10, 10, "0", 0};
-  element[4] = (elem){"Rotate z", &rotate->z, -10, 10, "0", 0};
-  element[5] = (elem){"Rotate y", &rotate->y, -10, 10, "0", 0};
+  element[3] = (elem){"Rotate x", &rotate->x, -360, 360, "0", 0};
+  element[4] = (elem){"Rotate z", &rotate->z, -360, 360, "0", 0};
+  element[5] = (elem){"Rotate y", &rotate->y, -360, 360, "0", 0};
   element[6] = (elem){"Scale", scale, 0.1, 5, "0", 0};
   
   return element;
@@ -109,14 +109,21 @@ void draw_gui(Vector3 *opt, elem* element, int* openExpl, char* filePaths, int c
     { textSlide(i+1, &(element[i]));}
     
     opt->x = GuiCheckBox((Rectangle){ XPOS(8) + 130, YPOS(8), 20, STEP }, "Dropped line", opt->x);
-    opt->y = GuiCheckBox((Rectangle){ XPOS(8), YPOS(8), 20, STEP }, "Type", opt->y);
+    int tmpY = GuiCheckBox((Rectangle){ XPOS(9) + 30, YPOS(9), 20, STEP }, "PERSPECTIVE", opt->y);
+    int tmpZ = GuiCheckBox((Rectangle){ XPOS(9) + 175, YPOS(9), 20, STEP }, "ORTHOGRAPHIC", opt->z);
+    if (tmpY != opt->y) {
+      opt->y = tmpY;
+      opt->z = !tmpY;
+    } else if (tmpZ != opt->z) {
+      opt->z = tmpZ;
+      opt->y = !tmpZ;
+    }
 
-    *openExpl = GuiButton((Rectangle){XPOS(15) - 20, YPOS(15) - 10, 260, 25}, "Open new file");
+    *openExpl = GuiButton((Rectangle){XPOS(15) - 40, YPOS(15) - 10, 260, 25}, "Open new file");
 
-    DrawText(findFilename(filePaths), XPOS(15) - 20, YPOS(12) - 10, 20, GREEN);
-
+    DrawText(findFilename(filePaths), XPOS(15) - 30, YPOS(12) - 10, 20, GREEN);
     sprintf(vertexText, "Count of vertex: %d", count_vertex);
     sprintf(facetText, "Count of facet: %d", count_index);
-    DrawText(vertexText, XPOS(15) - 20, YPOS(13) - 10, 20, GREEN);
-    DrawText(facetText, XPOS(15) - 20, YPOS(14) - 10, 20, GREEN);
+    DrawText(vertexText, XPOS(15) - 30, YPOS(13) - 10, 20, GREEN);
+    DrawText(facetText, XPOS(15) - 30, YPOS(14) - 10, 20, GREEN);
 }
