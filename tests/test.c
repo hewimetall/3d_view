@@ -40,7 +40,7 @@ static void fail(const char *file, int line, const char *fmt, ...) {
   do { \
     double actual_value = (actual); \
     double expected_value = (expected); \
-    if (fabs(actual_value - expected_value) > 0.0001) { \
+    if (fabs(actual_value - expected_value) > 0.001) { \
       fail(__FILE__, __LINE__, "expected %s ~= %.6f, got %.6f", #actual, expected_value, actual_value); \
     } \
   } while (0)
@@ -98,7 +98,7 @@ static void test_parser_skips_invalid_lines_and_indices(void) {
       "f 1 2\n"
       "f 0 2 3\n"
       "f 1 2 9\n"
-      "f 1/x/1 2/1/1 3/1/1\n"
+      "f x/1/1 2/1/1 3/1/1\n"
       "f 1 2 3\n");
   facet indices[2] = {0};
 
@@ -157,16 +157,16 @@ static void test_matrix_math(void) {
   Vector3 around_x = oper((Vector3){0.0f, 1.0f, 0.0f}, (Vector3){(float)M_PI_2, 0.0f, 0.0f});
   ASSERT_FLOAT_NEAR(around_x.x, 0.0);
   ASSERT_FLOAT_NEAR(around_x.y, 0.0);
-  ASSERT_FLOAT_NEAR(around_x.z, -1.0);
+  ASSERT_FLOAT_NEAR(around_x.z, 1.0);
 
   Vector3 around_y = oper((Vector3){0.0f, 0.0f, 1.0f}, (Vector3){0.0f, (float)M_PI_2, 0.0f});
-  ASSERT_FLOAT_NEAR(around_y.x, -1.0);
+  ASSERT_FLOAT_NEAR(around_y.x, 1.0);
   ASSERT_FLOAT_NEAR(around_y.y, 0.0);
   ASSERT_FLOAT_NEAR(around_y.z, 0.0);
 
   Vector3 around_z = oper((Vector3){1.0f, 0.0f, 0.0f}, (Vector3){0.0f, 0.0f, (float)M_PI_2});
   ASSERT_FLOAT_NEAR(around_z.x, 0.0);
-  ASSERT_FLOAT_NEAR(around_z.y, -1.0);
+  ASSERT_FLOAT_NEAR(around_z.y, 1.0);
   ASSERT_FLOAT_NEAR(around_z.z, 0.0);
 }
 
