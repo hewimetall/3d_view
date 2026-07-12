@@ -6,7 +6,7 @@ COVERAGE_DIR ?= build/coverage
 all: build
 
 configure:
-	cmake -S . -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=Release
+	cmake -S . -B $(BUILD_DIR) -DBUILD_APP=ON -DCMAKE_BUILD_TYPE=Release
 
 build: configure
 	cmake --build $(BUILD_DIR) --target s21_view3d --parallel
