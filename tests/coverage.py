@@ -20,8 +20,9 @@ def parse_args():
 def run_gcov(build_dir, sources):
     object_dir = Path(build_dir) / "CMakeFiles" / "unit_tests.dir"
     gcov = os.environ.get("GCOV", "gcov")
-    command = [gcov, "-o", str(object_dir), *[str(Path(source).resolve()) for source in sources]]
-    subprocess.run(command, check=True)
+    for source in sources:
+        object_file = object_dir / f"{Path(source).name}.o"
+        subprocess.run([gcov, str(object_file)], check=True)
 
 
 def collect_line_coverage(sources):
