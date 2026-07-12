@@ -2,7 +2,7 @@
 // Created by DERTY on 4/20/2023.
 //
 #include "project.h"
-#include "raymath.h"
+#include <math.h>
 
 typedef struct Matrix3 {
     float m0, m3, m6;  // Matrix first row (4 components)

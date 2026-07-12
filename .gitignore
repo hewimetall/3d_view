@@ -5,6 +5,9 @@
 *.o
 *.ko
 *.elf
+*.gcov
+*.gcda
+*.gcno
 
 # Linker output
 *.ilk
@@ -50,3 +53,5 @@ Module.symvers
 Mkfile.old
 dkms.conf
 .vscode/
+build/
+.DS_Store

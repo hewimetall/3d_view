@@ -11,44 +11,7 @@
 #define YPOS(x)(STARTY+STEP*(x-1))
 #define XPOS(x)(STARTX+50)
 
-int chrbrk(char simb, char *str) {
-  char *p;
-  int err = 1;
-  for (p = str; *p != '\0' && err; ++p) {
-    if (simb == *p) err = 0;
-  }
-  return err;
-}
-
-double validVal(char *input) {
-  char numbs[] = {'1', '2', '3', '4', '5', '6', '7',
-                  '8', '9', '0', '.', '-', '\0'};
-
-  int start = 1;
-  char *p = input;
-  int dot = 0;
-  double res = 0;
-    int err = 0;
-  while (*(p) && !err) {
-    if (chrbrk(*p, numbs)) err++;
-    if (*p == '.' && dot == 0)
-      dot++;
-    else if (*p == '.' && dot > 0)
-      err++;
-    else if (*p == '-' && !start) {
-      err++;
-    }
-    start = 0;
-    p++;
-  }
-  if (!err)
-  sscanf(input, "%lf", &res);
-  else res = 0;
-
-  return res;
-}
-
-void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector4 *opt, int* xMoveEditMode, char *xMoveText, int* yMoveEditMode, char *yMoveText, int* zMoveEditMode, char *zMoveText, int* xRotEditMode, char *xRotText, int* yRotEditMode, char *yRotText, int* zRotEditMode, char *zRotText) {
+void draw_gui(Vector3 *move, Vector3 *rotate, float *scale, Vector3 *opt, int* xMoveEditMode, char *xMoveText, int* yMoveEditMode, char *yMoveText, int* zMoveEditMode, char *zMoveText, int* xRotEditMode, char *xRotText, int* yRotEditMode, char *yRotText, int* zRotEditMode, char *zRotText) {
     GuiLoadStyleTerminal();
     DrawRectangle(STARTX-30,STARTY,350,160,DARKGRAY);
     GuiSetStyle(DEFAULT, TEXT_SIZE, 21);
