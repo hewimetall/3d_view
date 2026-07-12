@@ -51,7 +51,7 @@ int main() {
                 free(indices);
                 indices = calloc(1000000, sizeof(facet));
                 TextCopy(filePath, droppedFiles.paths[0]);
-                printf("\n\n%d %d %s\n\n", droppedFiles.capacity, droppedFiles.count, droppedFiles.paths[0] );
+                printf("\n\n%d %s\n\n", droppedFiles.count, droppedFiles.paths[0] );
                 count_index = parser_obj(filePath, indices);
             }
             UnloadDroppedFiles(droppedFiles);    // Unload filepaths from memory
