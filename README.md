@@ -7,6 +7,9 @@ render the model and use the side panel controls to move, rotate, and scale it.
 
 - CMake 3.16 or newer
 - A C11 compiler
+- A working C++ compiler/linker for raylib's CMake configure step. If the
+  default `c++` does not link libstdc++, pass `-DCMAKE_CXX_COMPILER=g++` or run
+  `CXX=g++ make build`.
 - Git access to GitHub during the first app build, because CMake fetches:
   - raylib 6.0
   - raygui 4.0
@@ -36,6 +39,12 @@ Configure and build the graphical app:
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --target s21_view3d --parallel
+```
+
+If CMake selects a C++ compiler that cannot link libstdc++, configure with:
+
+```sh
+cmake -S . -B build -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Release
 ```
 
 Or use Make:
