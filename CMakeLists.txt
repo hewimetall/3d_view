@@ -82,7 +82,7 @@ if(BUILD_TESTING)
 
         find_package(Python3 REQUIRED COMPONENTS Interpreter)
         add_custom_target(coverage
-            COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
+            COMMAND ${CMAKE_CTEST_COMMAND} --test-dir ${CMAKE_CURRENT_BINARY_DIR} --output-on-failure
             COMMAND ${Python3_EXECUTABLE}
                 ${CMAKE_CURRENT_SOURCE_DIR}/tests/coverage.py
                 --build-dir ${CMAKE_CURRENT_BINARY_DIR}
