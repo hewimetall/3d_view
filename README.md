@@ -17,6 +17,13 @@ render the model and use the side panel controls to move, rotate, and scale it.
   app, such as OpenGL, X11, pthread, dl, rt, and math libraries.
 - Python 3 and `gcov` for the coverage target.
 
+On Ubuntu, install the build prerequisites with:
+
+```sh
+sudo apt-get update
+sudo apt-get install -y cmake gcc g++ git python3 libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev
+```
+
 The headless unit tests do not require raylib, raygui, OpenGL, or the Check test
 framework.
 
