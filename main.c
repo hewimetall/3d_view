@@ -1,7 +1,7 @@
 #include "project.h"
 
 int main() {
-    facet (*indices)[] = calloc(1,sizeof(facet)*1000000);
+    facet *indices = calloc(1000000, sizeof(facet));
     // Define the camera to look into our 3d world
     Camera camera = {0};
     camera.position = (Vector3){ 5.0f, 10.0f, 15.0f }; // Camera position
@@ -38,21 +38,21 @@ int main() {
     int count_index = 0;
     InitWindow(950, 450, "My Window");
     SetTargetFPS(60);
-    char *filePaths[1024] = { 0 }; // We will register a maximum of filepaths
+    char filePath[1024] = { 0 };
     Color color = GREEN;
     Vector3 opt = {1.};
-    SetCameraMode(camera, CAMERA_FREE);
     
     while (!WindowShouldClose()) {
+            UpdateCamera(&camera, CAMERA_FREE);
             ClearBackground(BLACK);
         if (IsFileDropped()) {
             FilePathList droppedFiles = LoadDroppedFiles();
             if (droppedFiles.count == 1){
                 free(indices);
-                indices = calloc(1,sizeof(facet)*1000000);
-                TextCopy(filePaths, droppedFiles.paths[0]);
-                printf("\n\n%d %d %s\n\n", droppedFiles.capacity, droppedFiles.count, droppedFiles.paths[0] );
-                count_index = parser_obj(filePaths, indices);
+                indices = calloc(1000000, sizeof(facet));
+                TextCopy(filePath, droppedFiles.paths[0]);
+                printf("\n\n%d %s\n\n", droppedFiles.count, droppedFiles.paths[0] );
+                count_index = parser_obj(filePath, indices);
             }
             UnloadDroppedFiles(droppedFiles);    // Unload filepaths from memory
         }

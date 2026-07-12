@@ -25,6 +25,7 @@ Vector3 centerV(Vector3 v1, Vector3 v2) {
     return v;
 }
 
+#ifndef UNIT_TEST
 void draw_model(Color color, int count_index, facet indices[], float scale_p, Vector3 move, Vector3 rotate, Vector3 opt) {
     for(int i = 0; i<count_index ;i++) {
         
@@ -50,3 +51,4 @@ void draw_model(Color color, int count_index, facet indices[], float scale_p, Ve
         }
         }
 }
+#endif
